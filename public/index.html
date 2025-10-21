@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+</head>
+<body>
+    <h1>Student List</h1>
+    <ul id="student-list"></ul>
+
+    <h2>Add Student</h2>
+ 
+    <form id="studentForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="course" placeholder="Course" required>
+        <input type="number" id="year" placeholder="Year" required>
+        <button type="submit">Add Student</button>
+    </form>
+
+    <script>
+        const API_URL = 'http://localhost:3000/students';
+
+       
+        async function fetchStudents() {
+            const response = await fetch(API_URL);
+            const students = await response.json();
+
+            const studentList = document.getElementById('student-list');
+            studentList.innerHTML = '';
+
+            students.forEach(student => {
+                const li = document.createElement('li');
+                li.textContent = `${student.name} - ${student.course} - Year ${student.year}`;
+                studentList.appendChild(li);
+            });
+        }
+
+        document.getElementById('studentForm').addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const course = document.getElementById("course").value;
+            const year = document.getElementById("year").value;
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, course, year })
+            });
+
+            if (response.ok) {
+                fetchStudents();   
+                this.reset();      
+            } else {
+                alert('Failed to add student');
+            }
+        });
+
+    
+        fetchStudents();
+    </script>
+</body>
+</html>

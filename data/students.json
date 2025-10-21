@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Anuja",
+    "course": "Computer science",
+    "year": 2005
+  },
+  {
+    "id": 5,
+    "name": "Prasanna",
+    "course": "Computer science",
+    "year": 2006
+  },
+  {
+    "id": 6,
+    "name": "aRamya",
+    "course": "MSD",
+    "year": "2007"
+  }
+]
